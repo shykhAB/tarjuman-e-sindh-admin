@@ -205,7 +205,7 @@ class CustomBrowseImageWidget extends StatelessWidget {
             pd.dismissDialog();
             var compressedImage = await CommonCode().compressImage(file, quality: 70);
             String base64String = base64Encode(compressedImage.readAsBytesSync());
-            controller.urls.add(ImageModel(id: '', path: compressedImage.path, imageData: base64String, name: pickedImageFile!.name, mimeType: "image/${extension(compressImage.path).replaceAll(".", "")}", fileType: controller.title));
+            controller.urls.add(ImageModel(id: '', path: compressedImage.path, imageData: base64String, name: pickedImageFile!.name, mimeType: "image/${extension(compressImage.path).replaceAll(".", "")}"));
 
           }
         }
@@ -218,7 +218,7 @@ class CustomBrowseImageWidget extends StatelessWidget {
             compressImage = await CommonCode().compressImage(File(uri));
             if (compressImage.existsSync()) {
               String base64String = base64Encode(compressImage.readAsBytesSync());
-              controller.urls.add(ImageModel(id: '', path: compressImage.path, imageData: base64String, name: f.name, mimeType: "image/${extension(compressImage.path).replaceAll(".", "")}",fileType: controller.title.toLowerCase()));
+              controller.urls.add(ImageModel(id: '', path: compressImage.path, imageData: base64String, name: f.name, mimeType: "image/${extension(compressImage.path).replaceAll(".", "")}"));
             }
           }
         }

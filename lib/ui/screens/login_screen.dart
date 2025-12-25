@@ -9,7 +9,6 @@ import '../../utils/constants.dart';
 import '../../utils/text_field_manager.dart';
 import '../../utils/text_filter.dart';
 import '../custom_widgets/general_button.dart';
-import '../custom_widgets/general_text_field.dart';
 
 
 class LoginScreen extends GetView<LoginScreenController> {
@@ -96,7 +95,11 @@ class LoginScreen extends GetView<LoginScreenController> {
                       child: const Text('Forgot Password?',style: TextStyle(fontSize: 14,color: kWhiteColor, letterSpacing:0, decorationColor: kWhiteColor, decoration: TextDecoration.underline, ))),
                 ],
               ),
-              GeneralButton(onPressed: (){Get.toNamed(kDashboardScreenRoute);})
+              GeneralButton(onPressed: (){
+                // Get.toNamed(kDashboardScreenRoute);
+                controller.onSingInBtnPressed();
+
+              })
             ],
           ),
         ),

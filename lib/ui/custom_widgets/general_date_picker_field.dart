@@ -1,33 +1,22 @@
- import 'package:flutter/material.dart';
+/*Created By: Abdul Salam on 27-Oct-2025*/
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../utils/app_colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/date_time_manager.dart';
-
 
 
 class GeneralDatePickerField extends StatelessWidget {
 
   final DateTimeManager dateManager;
   final double paddingHorizontal;
-  final RxBool _withoutBorder=false.obs;
   final bool readOnly;
   final VoidCallback? onDateChange;
 
-  GeneralDatePickerField.withoutBorder({super.key,
-    required this.dateManager,
-    this.paddingHorizontal=3,
-    this.readOnly = false,
-    this.onDateChange,
-  }){
-    _withoutBorder.value=true;
-  }
-
-  GeneralDatePickerField.withBorder({super.key,
+  const GeneralDatePickerField({super.key,
     required this.dateManager,
     this.paddingHorizontal=0,
-    this.readOnly=false,
+    this.readOnly = false,
     this.onDateChange,
   });
 
@@ -38,66 +27,86 @@ class GeneralDatePickerField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Obx(
-                      ()=> TextField(
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom + 120),
-                        readOnly: true,
-                        controller: dateManager.controller,
-                        onTap: readOnly ? null : _selectDate,
-                        focusNode: dateManager.focusNode,
-                        cursorColor: kPrimaryColor,
-                        decoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            label: _withoutBorder.isTrue ? null : RichText(text: TextSpan(
-                                text: dateManager.fieldName,
-                                style: TextStyle(color: dateManager.isFocused.isTrue ? kPrimaryColor : kGreyColor, fontSize: 16),
-                                children: [
-                                  if(dateManager.mandatory)
-                                    const TextSpan(text: " *", style: TextStyle(color: kRequiredRedColor, fontSize: 16))
-                                ]
-                            ),
-                            ),
-                            filled: readOnly ? readOnly : _withoutBorder.value,
-                            fillColor: readOnly ? kPrimaryColor.withValues(alpha: 0.1) : _withoutBorder.value ? kWhiteColor : Colors.transparent,
-                            labelStyle: TextStyle(
-                                color: readOnly ? kFieldBorderColor : kGreyColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400
-                            ),
-                            counterText: '',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(_withoutBorder.isTrue ? 0: kFieldRadius)),
-                              borderSide: const BorderSide(color: kFieldBorderColor,width: 1.5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(_withoutBorder.isTrue ? 0: kFieldRadius)),
-                              borderSide: const BorderSide(color:  kPrimaryColor, width: 1.5),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:  BorderRadius.all(Radius.circular(_withoutBorder.isTrue ? 0: kFieldRadius)),
-                              borderSide: BorderSide(color: readOnly ? kFieldGreyColor : kGreyColor, width: 1),
-                            ),
-                            // hintText: "Enter ${tfManager.hint??tfManager.fieldName}",
-                            contentPadding: const EdgeInsets.all(16),
-                            // border: InputBorder.none,
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Image.asset('assets/icons/calendar-alt.png', color: kDarkGreyColor, width: 10, height: 10),
+          Visibility(
+              visible: dateManager.fieldName.length>40,
+              child: Column(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                        text: dateManager.fieldName,
+                        style: TextStyle(color: kTextHintColor, fontSize: 12, fontWeight: FontWeight.w500),
+                        children: [
+                          if(dateManager.mandatory)
+                            TextSpan(
+                                text: "*",
+                                style: TextStyle(color: kRequiredRedColor, fontSize: 14, fontWeight: FontWeight.w500)
                             )
-                        ),
-                        style: TextStyle(
-                          color: readOnly ? kTextHintColor : kTextHintColor,
-                          decorationColor: kPrimaryColor,
-                        ),
+                        ]
+                    ),),
+                  SizedBox(height: 4,)
+                ],
+              )),
+          Container(
+            width: Get.width,
+            margin: const EdgeInsets.only(top: 4),
+            padding: const EdgeInsets.only(left: 2, right: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: TextField(
+                      scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 120),
+                      readOnly: true,
+                      controller: dateManager.controller,
+                      onTap: readOnly ? null : _selectDate,
+                      focusNode: dateManager.focusNode,
+                      cursorColor: kPrimaryColor,
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          label:  dateManager.fieldName.length<40?RichText(text: TextSpan(
+                              text: dateManager.fieldName,
+                              style: TextStyle(color: kTextHintColor, fontSize: 16),
+                              children: [
+                                if(dateManager.mandatory)
+                                  const TextSpan(text: " *", style: TextStyle(color: kRequiredRedColor, fontSize: 16))
+                              ]
+                          ),
+                          ):null,
+                          filled: readOnly,
+                          fillColor: readOnly ? kPrimaryColor.withOpacity(0.1) : Colors.transparent ,
+                          labelStyle: TextStyle(
+                              color: readOnly ? kFieldBorderColor : kTextColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400
+                          ),
+                          counterText: '',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(kFieldRadius)),
+                            borderSide: const BorderSide(color: kFieldBorderColor, width: 1.5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(kFieldRadius)),
+                            borderSide: BorderSide(color: kPrimaryDarkColor, width: 1.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(kFieldRadius)),
+                            borderSide: BorderSide(color: kFieldBorderColor, width: 1),
+                          ),
+                          contentPadding: const EdgeInsets.all(16),
+                          // border: InputBorder.none,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Icon(Icons.calendar_today_outlined, color: kGreyColor,),
+                          )
                       ),
+                      style: TextStyle(
+                        color: readOnly ? kTextHintColor : kTextColor,
+                        decorationColor: kPrimaryColor,
+                      ),
+                    )
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 4),
           Obx(() => Visibility(
@@ -124,12 +133,9 @@ class GeneralDatePickerField extends StatelessWidget {
         } else if(now.isBefore(dateManager.firstDate)){
           initDate =  dateManager.firstDate;
         } else {
-         initDate = now;
+          initDate = now;
         }
 
-      }
-      if (initDate.isBefore(dateManager.firstDate)) {
-        initDate = dateManager.firstDate;
       }
       final date = await showDatePicker(
         context: Get.context!,
@@ -138,9 +144,9 @@ class GeneralDatePickerField extends StatelessWidget {
         lastDate: dateManager.lastDate,
         builder: (BuildContext context, Widget? child) {
           return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: kPrimaryColor,
-              buttonTheme: const ButtonThemeData(buttonColor: kPrimaryColor), colorScheme: const ColorScheme.light(primary: kPrimaryColor).copyWith(secondary: kPrimaryColor),
+            data: ThemeData.light(useMaterial3: true).copyWith(
+              primaryColor: kPrimaryDarkColor,
+              buttonTheme: const ButtonThemeData(buttonColor: kPrimaryDarkColor), colorScheme: const ColorScheme.light(primary: kPrimaryDarkColor).copyWith(secondary: kPrimaryDarkColor),
             ),
             child: child!,
           );

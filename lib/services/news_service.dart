@@ -1,37 +1,42 @@
-// import 'package:mind_healing_app/models/hospital_model.dart';
-// import 'package:mind_healing_app/utils/constants.dart';
-//
-// import '../models/response_model.dart';
-// import '../utils/firebase_client.dart';
-//
-// class HospitalServices{
-//
-//   Future<List<HospitalModel>> getAllHospitals()async{
-//     List<HospitalModel> hospitals = [];
-//     var data = await FirebaseClient().firebaseGetRequest(collectionName: kHospitalCollection);
-//     if(data is List){
-//       for(var i in data){
-//         hospitals.add(HospitalModel.fromJson(i));
-//       }
-//     }
-//     else{
-//       hospitals = [];
-//     }
-//     return hospitals;
-//   }
-//
-//   Future<String> addHospital(HospitalModel hospitalModel) async {
-//     ResponseModel responseModel = await FirebaseClient().firebaseInsertRequest(model: hospitalModel, collectionName: kHospitalCollection, id: hospitalModel.hospitalId.toString());
-//     return responseModel.statusDescription;
-//   }
-//
-//   Future<String> updateHospital(HospitalModel hospitalModel)async{
-//     ResponseModel responseModel = await FirebaseClient().firebaseUpdateRequest(model: hospitalModel, collectionName: kHospitalCollection, id: hospitalModel.hospitalId.toString());
-//     return responseModel.statusDescription;
-//   }
-//
-//   Future<String> deleteHospital({required String id})async{
-//     ResponseModel responseModel = await FirebaseClient().firebaseDeleteRequest(collectionName: kHospitalCollection, id: id);
-//     return responseModel.statusDescription;
-//   }
-// }
+import 'package:tarjuman_e_sindh_admin/models/news_model.dart';
+import 'package:tarjuman_e_sindh_admin/utils/constants.dart';
+import '../models/response_model.dart';
+import '../utils/firebase_client.dart';
+
+class NewsServices{
+
+  Future<List<NewsModel>> getAllNews()async{
+    List<NewsModel> news = [];
+    var data = await FirebaseClient().firebaseGetRequest(collectionName: kNewsCollection);
+    if(data is List){
+      for(var i in data){
+        news.add(NewsModel.fromJson(i));
+      }
+    }
+    else{
+      news = [];
+    }
+    return news;
+  }
+
+  Future<String> addNews(NewsModel newsModel) async {
+    List<NewsModel> hospitals = await getAllNews();
+    int id = 0;
+    if (hospitals.isNotEmpty) {
+      id = hospitals.map((hospital) => hospital.id).reduce((value, element) => value > element ? value : element);
+    }
+    newsModel.id=id+1;
+    ResponseModel responseModel = await FirebaseClient().firebaseInsertRequest(model: newsModel, collectionName: kNewsCollection, id: newsModel.id.toString());
+    return responseModel.statusDescription;
+  }
+
+  Future<String> updateNews(NewsModel newsModel)async{
+    ResponseModel responseModel = await FirebaseClient().firebaseUpdateRequest(model: newsModel, collectionName: kNewsCollection, id: newsModel.id.toString());
+    return responseModel.statusDescription;
+  }
+
+  Future<String> deleteNews({required String id})async{
+    ResponseModel responseModel = await FirebaseClient().firebaseDeleteRequest(collectionName: kNewsCollection, id: id);
+    return responseModel.statusDescription;
+  }
+}

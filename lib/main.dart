@@ -1,4 +1,5 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import 'package:tarjuman_e_sindh_admin/utils/app_colors.dart';
 import 'package:tarjuman_e_sindh_admin/utils/constants.dart';
 import 'package:tarjuman_e_sindh_admin/utils/route_management.dart';
 import 'package:tarjuman_e_sindh_admin/utils/screen_bindings.dart';
+
+import 'firebase_options.dart';
 
 
 void main() async {
@@ -37,6 +40,9 @@ void main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,

@@ -174,4 +174,46 @@ extension StringUtils on String {
     return str;
   }
 
+
+  String get timeAgo {
+    DateTime? dateTime;
+
+    try {
+      dateTime = DateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(this);
+    } catch (_) {
+      try {
+        dateTime = DateTime.parse(this);
+      } catch (_) {
+        return '';
+      }
+    }
+
+    Duration diff = DateTime.now().difference(dateTime);
+
+    if (diff.isNegative) {
+      return 'Just now';
+    }
+
+    if (diff.inSeconds < 60) {
+      return 'Just now';
+    }
+    if (diff.inMinutes < 60) {
+      return '${diff.inMinutes} min ago';
+    }
+    if (diff.inHours < 24) {
+      return diff.inHours == 1
+          ? '1 hour ago'
+          : '${diff.inHours} hours ago';
+    }
+    if (diff.inDays == 1) {
+      return 'Yesterday';
+    }
+    if (diff.inDays < 7) {
+      return '${diff.inDays} days ago';
+    }
+
+    return DateFormat('dd MMM yyyy').format(dateTime);
+  }
+
+
 }

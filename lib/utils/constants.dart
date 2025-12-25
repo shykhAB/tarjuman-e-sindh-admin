@@ -18,6 +18,8 @@ const String kDashboardScreenRoute = "/DASHBOARD_SCREEN";
 const String kSettingScreenRoute = "/SETTING_SCREEN";
 const String kUploadNewsScreenRoute = "/UPLOAD_NEWS_SCREEN";
 const String kNewsListScreenRoute = "/NEWS_LIST_SCREEN";
+const String kNewsDetailScreenRoute = "/NEWS_DETAIL_SCREEN";
+const String kProfileScreenRoute = "/PROFILE_SCREEN";
 
 
 ///*********************  Firebase Collections   *********************///

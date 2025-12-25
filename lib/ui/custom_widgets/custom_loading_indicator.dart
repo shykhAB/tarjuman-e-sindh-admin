@@ -14,7 +14,7 @@ class CustomLoadingIndicator extends StatelessWidget {
     return isLoading ? Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.only(top: 100),
-          child: const CircularProgressIndicator(color: kPrimaryColor,strokeWidth: 2)
+          child: const CircularProgressIndicator(color: kPrimaryDarkColor,strokeWidth: 2)
       ) : Visibility(
         visible: isListEmpty,
         child: Container(

@@ -8,6 +8,8 @@ import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/general_dropdown.dart';
 import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/general_text_field.dart';
 import 'package:tarjuman_e_sindh_admin/utils/app_colors.dart';
 
+import '../custom_widgets/general_date_picker_field.dart';
+
 class UploadNewsScreen extends GetView<UploadNewsScreenController> {
   const UploadNewsScreen({super.key});
 
@@ -28,8 +30,13 @@ class UploadNewsScreen extends GetView<UploadNewsScreenController> {
         GeneralTextField(tfManager: controller.headingTFM),
         GeneralTextField(tfManager: controller.detailTFM, maxLines: 20,),
         GeneralDropdown(controller: controller.categoryDDC),
+        // GeneralDatePickerField(dateManager: controller.date,),
         CustomBrowseImageWidget(controller: controller.imageController, withBrows: true,),
-        GeneralButton(onPressed: (){}, color: kPrimaryDarkColor, secondColor: kPrimaryLightColor,),
+        GeneralButton(onPressed: ()=>controller.newsModel.isEmpty?controller.onSubmitPressed() : controller.onUpdatePressed(), color: kPrimaryDarkColor, secondColor: kPrimaryLightColor,
+          text: controller.newsModel.isEmpty?"Submit" : "Update",
+
+
+        ),
       ],
     );
   }

@@ -19,6 +19,11 @@ import 'date_time_manager.dart';
 
 class CommonCode {
 
+  Uint8List decodeImage(String imagePath){
+    Uint8List image = base64Decode(imagePath);
+    return image;
+  }
+
   bool checkIsTimeAfterOrEqual(String time) {
     String splittedTime = _getTime(time);
     DateFormat dateFormat = DateFormat("HH:mm");

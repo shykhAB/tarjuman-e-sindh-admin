@@ -4,28 +4,34 @@
 
 
 import 'package:get/get.dart';
-import '../models/item_model.dart';
-import '../models/news_model.dart';
 
 class DummyData {
 
-  static List<ItemModel> get getNewsCategories => [
-    ItemModel('Latest', 'تازا ترين'),
-    ItemModel('Pakistan', 'پاڪستان'),
-    ItemModel('World', 'دنيا'),
-    ItemModel('Sports', 'رانديون'),
-    ItemModel('Showbiz', 'شوبز'),
-    ItemModel('Interesting & Economy', 'دلچسپ ۽ معيشت'),
-    ItemModel('Today Newspaper', 'اڄ جي اخبار'),
+  // static List<ItemModel> get getNewsCategories => [
+  //   ItemModel('Latest', 'تازا ترين'),
+  //   ItemModel('Pakistan', 'پاڪستان'),
+  //   ItemModel('World', 'دنيا'),
+  //   ItemModel('Sports', 'رانديون'),
+  //   ItemModel('Showbiz', 'شوبز'),
+  //   ItemModel('Interesting & Economy', 'دلچسپ ۽ معيشت')
+  // ];
+
+  static List<String> get getNewsCategories => [
+    'تازا ترين',
+    'پاڪستان',
+    'دنيا',
+    'رانديون',
+    'شوبز',
+    'دلچسپ ۽ معيشت'
   ];
 
-  static RxList<NewsModel> get getNewsList => [
-  NewsModel(id: "1", heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
-  NewsModel(id: "2", heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
-  NewsModel(id: "3", heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
-  NewsModel(id: "4", heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
-  NewsModel(id: "5", heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
-  ].obs;
+  // static RxList<NewsModel> get getNewsList => [
+  // NewsModel(id: 1, heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
+  // NewsModel(id: 2, heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
+  // NewsModel(id: 3, heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
+  // NewsModel(id: 4, heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
+  // NewsModel(id: 5, heading: "اقتصادي سڌارن مارڪيٽ تي مثبت اثر ڏيکاريو", detail: "تازين اقتصادي پاليسين مختلف شعبن ۾ اميد افزا نتيجا ڏيکارڻ شروع ڪيا آهن.", image: "https://via.placeholder.com/600x400", category: "پاڪستان", createdAt: "1 Hour Ago", createdBy: "Abdul Salam"),
+  // ].obs;
 
 
   static RxList<Map<String, dynamic>> breakingNews = <Map<String, dynamic>>[

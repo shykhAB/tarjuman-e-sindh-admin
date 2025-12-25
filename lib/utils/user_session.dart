@@ -9,14 +9,7 @@ class UserSession {
 
   static final RxBool isDataChanged = RxBool(false);
   static final Rx<UserModel> userModel = UserModel.empty().obs;
-  // static Rx<Offset> backButtonPosition = Offset(12, Get.height*0.8).obs;
-  static RxInt backButtonTransparency = (0xCC).obs;
-  static const String keyAllDataSynced = "AllDataSynced";
-  static const String keyInspectionAppointments = "GetInspectionAppointments";
-  static const String keyAllCreatedInspections = "GetCreatedInspections";
-  static const String keyAllAppointments = "GetAllAppointments";
-  static const String keyAllFitnessCertificates = "GetAllCertificates";
-  static const String keyCheckList = "GetChecklist";
+  static final Rx<String> userId = ''.obs;
 
   static final UserSession _instance = UserSession._internal();
   UserSession._internal();
@@ -27,15 +20,15 @@ class UserSession {
   Future<bool> createSession({required UserModel user}) async {
     const FlutterSecureStorage storage =  FlutterSecureStorage();
     userModel.value = user;
-    await storage.write(key: 'USER_DATA', value: jsonEncode(userModel.value.toOfflineJson()));
+    await storage.write(key: 'USER_DATA', value: jsonEncode(userModel.value.toJson()));
     return true;
   }
 
   Future<bool> isUserLoggedIn() async {
     const FlutterSecureStorage storage =  FlutterSecureStorage();
     final value = await storage.read(key: 'USER_DATA');
-    userModel.value = UserModel.fromOfflineJson(jsonDecode(value ?? "{}"));
-    return userModel.value.email.isNotEmpty && userModel.value.isRemembered;
+    userModel.value = UserModel.fromJson(jsonDecode(value ?? "{}"));
+    return userModel.value.email.isNotEmpty;
   }
 
   Future<bool> logoutSession() async {
@@ -58,16 +51,38 @@ class UserSession {
     return true;
   }
 
-
-  Future<bool> checkDefaultCameraEnabled() async {
+  Future<bool> getIsRemember() async {
     const FlutterSecureStorage storage =  FlutterSecureStorage();
-    final value = await storage.read(key: 'UseDefaultCamera');
+    final value = await storage.read(key: 'isRemember');
     return value == 'true';
   }
 
-  Future<void> enableDefaultCamera(bool value) async {
+  Future<void> setIsRemember(bool value) async {
     const FlutterSecureStorage storage =  FlutterSecureStorage();
-    await storage.write(key: 'UseDefaultCamera',value: value.toString());
+    await storage.write(key: 'isRemember',value: value.toString());
+  }
+
+  Future<String> getUserId() async {
+    const FlutterSecureStorage storage =  FlutterSecureStorage();
+    userId.value = await storage.read(key: 'userId') ?? '';
+    return userId.value;
+  }
+
+  Future<void> setUserId(String value) async {
+    const FlutterSecureStorage storage =  FlutterSecureStorage();
+    userId.value = value;
+    await storage.write(key: 'userId', value: userId.value);
+  }
+
+  Future<bool> getIsProfileCreated() async {
+    const FlutterSecureStorage storage =  FlutterSecureStorage();
+   final value = await storage.read(key: 'profile') ?? '';
+    return value == 'true';
+  }
+
+  Future<void> setIsProfileCreated(bool value) async {
+    const FlutterSecureStorage storage =  FlutterSecureStorage();
+    await storage.write(key: 'profile',value: value.toString());
   }
 
 

@@ -6,7 +6,7 @@ import '../../utils/user_session.dart';
 class DropdownController {
 
   final RxString errorMessage=''.obs;
-  final Rx<dynamic> selectedItem=Rx(null);
+  Rx<dynamic> selectedItem=Rx(null);
   String title;
   String hintText;
   final RxList<dynamic> items;

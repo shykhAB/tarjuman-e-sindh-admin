@@ -40,7 +40,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         )
       ) ,
       actions: [
-        screenName != "Find Route" && (UserSession.userModel.value.userName.isNotEmpty ? true : screenName != "Create Account") && screenName != "Forgot Password" && screenName != "Verify OTP"  && screenName != "Reset Password" && screenName != "Sync Data" && screenName != "Track Certificate" ?GestureDetector(
+        screenName != "Find Route" && (UserSession.userModel.value.name.isNotEmpty ? true : screenName != "Create Account") && screenName != "Forgot Password" && screenName != "Verify OTP"  && screenName != "Reset Password" && screenName != "Sync Data" && screenName != "Track Certificate" ?GestureDetector(
           child: Container(
             width: 30,
             height: 30,
@@ -87,7 +87,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           padding: screenName == "Sync Data" ?const EdgeInsets.only(left: 32.0):const EdgeInsets.all(0),
           child: Text(
             screenName,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,  color: (UserSession.userModel.value.userName.isNotEmpty ? false : screenName == "Create Account")  || screenName == "Forgot Password" || screenName == "Verify OTP"  || screenName == "Reset Password" || screenName == "Track Certificate" ? kBlackColor : kWhiteColor),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,  color: (UserSession.userModel.value.name.isNotEmpty ? false : screenName == "Create Account")  || screenName == "Forgot Password" || screenName == "Verify OTP"  || screenName == "Reset Password" || screenName == "Track Certificate" ? kBlackColor : kWhiteColor),
           ),
         ),
       ),

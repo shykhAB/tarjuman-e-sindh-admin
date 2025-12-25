@@ -23,7 +23,7 @@ class DashboardScreen extends GetView<DashboardScreenController> {
       children: [
         SizedBox(height: 20,),
         GestureDetector(
-          onTap: ()=>Get.toNamed(kUploadNewsScreenRoute),
+          onTap: ()=>Get.toNamed(kNewsListScreenRoute),
           child: Row(
             children: [
               Expanded(child: _buildSurveyCard(icon: Icons.access_alarms, count: "3", label: "No of News", color: kLightGreenColor)),

@@ -49,7 +49,7 @@ class CustomDashboardAppbar extends StatelessWidget implements PreferredSizeWidg
                 child: FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.scaleDown,
-                  child: Text(UserSession.userModel.value.fullName,
+                  child: Text(UserSession.userModel.value.name,
                     style: TextStyle(color: kWhiteColor, fontWeight: FontWeight.w600, )),
                 ),
               ),

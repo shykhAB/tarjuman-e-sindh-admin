@@ -8,6 +8,7 @@ import '../ui/custom_widgets/custom_dialogs.dart';
 import '../ui/custom_widgets/custom_progress_dialog.dart';
 import '../utils/app_colors.dart';
 import '../utils/common_code.dart';
+import '../utils/constants.dart';
 import '../utils/text_field_manager.dart';
 import '../utils/text_filter.dart';
 import '../utils/user_session.dart';
@@ -32,17 +33,18 @@ class LoginScreenController extends GetxController{
       if(checkInternet){
         String response = await UserServices().loginUser(loginModel);
         if (response == "OK") {
+          UserSession().setIsRemember(rememberMe.value);
+          UserSession().setUserId(loginModel.email);
           dynamic user = await UserServices().getUser(usernameTFMController.text);
-          if (user is Map<String, dynamic>) {
+          if (user is Map<String, dynamic> && user.isNotEmpty) {
             pd.dismissDialog();
             UserModel userModel = UserModel.fromJson(user);
-            await UserServices().updateUser(userModel);
-            userModel.isRemembered = rememberMe.value;
             UserSession().createSession(user: userModel);
-            // Get.offAllNamed(kDashboardScreenRoute);
-        }else{
-            pd.dismissDialog();CustomDialogs().showErrorDialog("Alert", "Services Are Currently Unavailable, Please try again later!", DialogType.error, kRequiredRedColor);
-        }
+            UserSession().setIsProfileCreated(true);
+            Get.offAllNamed(kDashboardScreenRoute);
+          }else{
+            Get.offAllNamed(kProfileScreenRoute);
+          }
       }else if(response == "user-not-found") {
           pd.dismissDialog();
           CustomDialogs().showErrorDialog("Alert", "User Not Found!", DialogType.error, kRequiredRedColor);
