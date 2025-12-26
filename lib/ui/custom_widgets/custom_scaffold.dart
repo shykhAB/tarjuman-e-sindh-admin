@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/custom_dashboard_app_bar.dart';
 import '../../utils/app_colors.dart';
 import 'custom_app_bar.dart';
+import 'custom_bottom_navbar.dart';
 import 'custom_dialogs.dart';
 
 class CustomScaffold extends StatefulWidget {
@@ -122,6 +123,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 shape: const CircleBorder(),
                 child: const Icon(Icons.add,color: kWhiteColor, size: 32),
               ),
+              bottomNavigationBar: widget.screenName == "Dashboard" ? CustomBottomNavBar() : null,
               // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             ) ,
           ),

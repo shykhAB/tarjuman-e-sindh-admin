@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/dashboard_screen.dart';
+import 'package:tarjuman_e_sindh_admin/ui/screens/epaper_list_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/forgot_password_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/login_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/news_detail_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/news_list_screen.dart';
+import 'package:tarjuman_e_sindh_admin/ui/screens/upload_epaper_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/upload_news_screen.dart';
 import 'package:tarjuman_e_sindh_admin/ui/screens/view_profile_screen.dart';
 import 'package:tarjuman_e_sindh_admin/utils/screen_bindings.dart';
@@ -55,7 +57,16 @@ class RouteManagement {
         page: () => const ViewProfileScreen(),
         binding: ScreensBindings(),
       ),
-
+      GetPage(
+        name: kEPaperListScreenRoute,
+        page: () => const EPaperListScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kUploadEPaperScreenRoute,
+        page: () => const UploadEPaperScreen(),
+        binding: ScreensBindings(),
+      ),
     ];
   }
 }

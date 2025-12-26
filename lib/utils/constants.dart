@@ -20,7 +20,8 @@ const String kUploadNewsScreenRoute = "/UPLOAD_NEWS_SCREEN";
 const String kNewsListScreenRoute = "/NEWS_LIST_SCREEN";
 const String kNewsDetailScreenRoute = "/NEWS_DETAIL_SCREEN";
 const String kProfileScreenRoute = "/PROFILE_SCREEN";
-
+const String kUploadEPaperScreenRoute = "/UPLOAD_ePAPER_SCREEN";
+const String kEPaperListScreenRoute = "/ePAPER_LIST_SCREEN";
 
 ///*********************  Firebase Collections   *********************///
 const String kUserCollection = "users";

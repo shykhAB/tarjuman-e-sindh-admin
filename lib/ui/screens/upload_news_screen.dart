@@ -8,8 +8,6 @@ import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/general_dropdown.dart';
 import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/general_text_field.dart';
 import 'package:tarjuman_e_sindh_admin/utils/app_colors.dart';
 
-import '../custom_widgets/general_date_picker_field.dart';
-
 class UploadNewsScreen extends GetView<UploadNewsScreenController> {
   const UploadNewsScreen({super.key});
 

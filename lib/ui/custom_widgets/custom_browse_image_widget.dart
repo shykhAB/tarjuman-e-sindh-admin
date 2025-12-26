@@ -25,6 +25,7 @@ class CustomBrowseImageWidget extends StatelessWidget {
   final double paddingVertical;
   final bool readOnly;
   final bool withBrows;
+  final bool onlyBrows;
   final bool askLocation;
   final String writeTextOnImage;
   final bool withText;
@@ -37,6 +38,7 @@ class CustomBrowseImageWidget extends StatelessWidget {
         this.paddingHorizontal = 4,
         this.readOnly = false,
         this.withBrows = false,
+        this.onlyBrows = false,
         this.askLocation = false,
         this.paddingVertical = 10,
         this.writeTextOnImage = '',

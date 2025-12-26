@@ -5,7 +5,6 @@ import 'package:tarjuman_e_sindh_admin/controllers/dashboard_screen_controller.d
 import 'package:tarjuman_e_sindh_admin/models/weekly_graph_model.dart';
 import 'package:tarjuman_e_sindh_admin/ui/custom_widgets/custom_scaffold.dart';
 import 'package:tarjuman_e_sindh_admin/utils/constants.dart';
-
 import '../../utils/app_colors.dart';
 import '../custom_widgets/custom_loading_indicator.dart';
 
@@ -29,14 +28,14 @@ class DashboardScreen extends GetView<DashboardScreenController> {
           onTap: ()=>Get.toNamed(kNewsListScreenRoute),
           child: Column(
             children: [
-              _buildWeeklyInspectionsChart(),
               Row(
                 children: [
-                  Expanded(child: _buildSurveyCard(icon: Icons.access_alarms, count: "3", label: "No of News", color: kLightGreenColor)),
+                  Expanded(child: _buildSurveyCard(icon: Icons.file_copy, count: "3", label: "Total Uploaded\n News", color: Color(0xFF276667))),
                   SizedBox(width: 5,),
-                  Expanded(child: _buildSurveyCard(icon: Icons.access_alarms, count: "3", label: "No of E-Papers", color: kButtonColor))
+                  Expanded(child: _buildSurveyCard(icon: Icons.newspaper_outlined, count: "3", label: "Total Uploaded\n E-Papers", color: Color(0xFFB69B03)))
                 ],
               ),
+              _buildWeeklyInspectionsChart(),
             ],
           ),
         )
@@ -169,7 +168,7 @@ class DashboardScreen extends GetView<DashboardScreenController> {
       return SfCartesianChart(
         margin:EdgeInsets.only(top: 24),
         title: ChartTitle(
-          text: 'Weekly Inspections',
+          text: 'Weekly News Report',
           alignment: ChartAlignment.near,
           textStyle: const TextStyle(
             fontWeight: FontWeight.w600,
@@ -185,7 +184,7 @@ class DashboardScreen extends GetView<DashboardScreenController> {
 
         tooltipBehavior: TooltipBehavior(
           enable: true,
-          format: 'point.x: point.y inspections',
+          format: 'point.x: point.y news',
           textStyle: const TextStyle(color: kWhiteColor),),
 
 
@@ -210,7 +209,7 @@ class DashboardScreen extends GetView<DashboardScreenController> {
         ),
         series: <CartesianSeries>[
           ColumnSeries<WeeklyGraphModel, String>(
-            name: 'Inspections',
+            name: 'News',
             dataSource: controller.weeklyData,
             xValueMapper: (data, _) => data.formattedDay,
             yValueMapper: (data, _) => data.count,
