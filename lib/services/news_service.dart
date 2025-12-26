@@ -1,4 +1,5 @@
 import 'package:tarjuman_e_sindh_admin/models/news_model.dart';
+import 'package:tarjuman_e_sindh_admin/models/weekly_graph_model.dart';
 import 'package:tarjuman_e_sindh_admin/utils/constants.dart';
 import '../models/response_model.dart';
 import '../utils/firebase_client.dart';
@@ -39,4 +40,9 @@ class NewsServices{
     ResponseModel responseModel = await FirebaseClient().firebaseDeleteRequest(collectionName: kNewsCollection, id: id);
     return responseModel.statusDescription;
   }
+  Future<List<WeeklyGraphModel>> getCounts()async{
+    List<WeeklyGraphModel> data = await FirebaseClient().firebaseGetWeeklyGraphData(collectionName: kNewsCollection);
+    return data;
+  }
+
 }

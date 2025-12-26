@@ -95,6 +95,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       child: const Text('Forgot Password?',style: TextStyle(fontSize: 14,color: kWhiteColor, letterSpacing:0, decorationColor: kWhiteColor, decoration: TextDecoration.underline, ))),
                 ],
               ),
+              SizedBox(height: 50,),
               GeneralButton(onPressed: (){
                 // Get.toNamed(kDashboardScreenRoute);
                 controller.onSingInBtnPressed();

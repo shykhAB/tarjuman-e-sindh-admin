@@ -188,6 +188,11 @@ extension StringUtils on String {
       }
     }
 
+    // Convert to local time if it's UTC
+    if (dateTime.isUtc) {
+      dateTime = dateTime.toLocal();
+    }
+
     Duration diff = DateTime.now().difference(dateTime);
 
     if (diff.isNegative) {
@@ -198,7 +203,9 @@ extension StringUtils on String {
       return 'Just now';
     }
     if (diff.inMinutes < 60) {
-      return '${diff.inMinutes} min ago';
+      return diff.inMinutes == 1
+          ? '1 min ago'
+          : '${diff.inMinutes} mins ago';
     }
     if (diff.inHours < 24) {
       return diff.inHours == 1

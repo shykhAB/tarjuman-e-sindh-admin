@@ -29,6 +29,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
       children: [
         const SizedBox(height: 50,),
         GeneralTextField(tfManager: controller.email),
+        const SizedBox(height: 20,),
         GeneralButton(onPressed: controller.sendEmail)
       ],
 

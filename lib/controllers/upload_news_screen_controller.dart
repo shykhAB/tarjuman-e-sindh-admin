@@ -20,7 +20,7 @@ class UploadNewsScreenController extends GetxController{
   TextFieldManager headingTFM = TextFieldManager("Heading", length: 100);
   TextFieldManager detailTFM = TextFieldManager("Detail", length: 2000);
   DropdownController categoryDDC = DropdownController(title: "Category", items: RxList(DummyData.getNewsCategories));
-  BrowseImageController imageController = BrowseImageController(title: "Image", minLength: 1, maxLength: 1);
+  BrowseImageController imageController = BrowseImageController(title: "Image", minLength: 1, maxLength: 1, mandatory: false);
   DateTimeManager date = DateTimeManager("News Date", firstDate: DateTime(DateTime.now().year - 75, DateTime.now().month, DateTime.now().day),lastDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day), mandatory: false);
   NewsModel newsModel = NewsModel.empty();
 

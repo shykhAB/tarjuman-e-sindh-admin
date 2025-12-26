@@ -34,7 +34,7 @@ class ForgotPasswordScreenController extends GetxController{
         ResponseModel response = await ForgotPasswordService().sendEmail(email: email.controller.text);
         if(response.statusDescription == "OK"){
           pd.dismissDialog();
-          CustomDialogs().showErrorDialog("Success", "", DialogType.success, kGreenColor, onOkBtnPressed:()=>Get.back());
+          CustomDialogs().showErrorDialog("Success", "Request Sent Successfully Soon You Will Receive an Email", DialogType.success, kGreenColor, onOkBtnPressed:()=>Get.back());
         }else if(response.statusDescription == "user-not-found"){
           pd.dismissDialog();
           CustomDialogs().showErrorDialog("Alert", "No Data Found!", DialogType.error, kRequiredRedColor);

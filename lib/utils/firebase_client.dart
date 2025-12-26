@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import '../models/response_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_auth/firebase_auth.dart';
+import '../models/weekly_graph_model.dart';
 
 class FirebaseClient {
 
@@ -126,5 +128,94 @@ class FirebaseClient {
       return ResponseModel.named(statusDescription: errorDis);
     }
   }
+
+  Future<dynamic> firebaseGetLastSevenDaysCount({required String collectionName}) async {
+    try {
+      final DateTime now = DateTime.now();
+      final DateTime sevenDaysAgo = now.subtract(const Duration(days: 7));
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(collectionName).where('createdAt', isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgo),).get();
+      return snapshot.docs.length;
+    } catch (e) {
+      log('Last 7 days count error: $e');
+      return ResponseModel.named(statusDescription: 'OTHER');
+    }
+  }
+
+
+  Future<dynamic> firebaseGetWeeklyGraphData({required String collectionName,}) async {
+    try {
+      final DateTime now = DateTime.now();
+      final DateTime sevenDaysAgo = now.subtract(const Duration(days: 6));
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(collectionName).where('createdAt', isGreaterThanOrEqualTo: sevenDaysAgo.toString()).get();
+      Map<String, WeeklyGraphModel> graphMap = {};
+      for (int i = 0; i < 7; i++) {
+        DateTime date = now.subtract(Duration(days: i));
+        String key = _dateKey(date);
+        graphMap[key] = WeeklyGraphModel(
+          day: _dayName(date),
+          date: date,
+          count: 0,
+        );
+      }
+
+      for (var doc in snapshot.docs) {
+        try {
+          final data = doc.data() as Map<String, dynamic>;
+          final createdAt = data['createdAt'];
+          if (createdAt == null) {
+            log('Document ${doc.id} has null createdAt, skipping');
+            continue;
+          }
+          DateTime date;
+          if (createdAt is String) {
+            try {
+              date = DateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(createdAt);
+            } catch (_) {
+              try {
+                date = DateTime.parse(createdAt);
+              } catch (e) {
+                log('Document ${doc.id} has invalid date format: $createdAt');
+                continue;
+              }
+            }
+          } else if (createdAt is Timestamp) {
+            date = createdAt.toDate();
+          } else {
+            log('Document ${doc.id} createdAt is neither String nor Timestamp: ${createdAt.runtimeType}');
+            continue;
+          }
+
+          String key = _dateKey(date);
+
+          if (graphMap.containsKey(key)) {
+            final old = graphMap[key]!;
+            graphMap[key] = WeeklyGraphModel(
+              day: old.day,
+              date: old.date,
+              count: old.count + 1,
+            );
+          }
+        } catch (e) {
+          log('Error processing document ${doc.id}: $e');
+        }
+      }
+
+      List<WeeklyGraphModel> graphList = graphMap.values.toList()..sort((a, b) => a.date.compareTo(b.date));
+      return graphList;
+    } catch (e, s) {
+      log('Weekly graph error: ${s.toString()}');
+      return ResponseModel.named(statusDescription: 'OTHER');
+    }
+  }
+
+  String _dateKey(DateTime date) =>
+      "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+
+  String _dayName(DateTime date) {
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return days[date.weekday - 1];
+  }
+
+
 
 }
